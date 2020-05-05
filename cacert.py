@@ -60,15 +60,9 @@ def isExistsDir(cDir):
 
 
 def CopyCert(cDir):
-    print(os.getcwd())
     cert, copyCert = ReadiniFile()
-
-    source = f'{copyCert}\{cDir}\certnew.cer'
-    target = f'{os.getcwd()}\{cDir}'
-
-    print(source)
-    print(target)
-    exit()
+    source = f'{copyCert}\certnew.cer'
+    target = f'{cert}\{cDir}'
     shutil.move(source, target)
     print(f'Certifikate was move from {source} to {target}')
 
@@ -108,7 +102,7 @@ def main():
         #cert.cPfx(name)
         CopyCert(name)
     else:
-        print(Fore.MAGENTA + 'warning: i\'m sorry, but argument is missing, please add argument - usually the name of certificate')
+        print(Fore.MAGENTA + 'warning: I\'m sorry, but argument is missing, please add argument - usually the name of certificate')
 
 
 
