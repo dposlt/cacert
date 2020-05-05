@@ -17,8 +17,8 @@ def ReadiniFile():
 
     config.sections()
 
-    cert = config['PATHS']['cert']
-    copyCert = config['PATHS']['source']
+    cert = config['CERTPATH']['cert']
+    copyCert = config['CERTSOURCE']['cert']
 
     return cert, copyCert
 	
@@ -60,16 +60,22 @@ def isExistsDir(cDir):
 
 
 def CopyCert(cDir):
-    cert, copyCert = ReadiniFile()
-    source = f'{copyCert}\certnew.cer'
-    target = f'{cert}\{cDir}'
+    #cert, copyCert = ReadiniFile()
+
+    source = r'c:\Users\212437054\Downloads\certnew.cer'
+    #source = f'{ReadiniFile()[1]}certnew.cer'
+    target = f'{ReadiniFile()[0]}\{cDir}'
     shutil.move(source, target)
     print(f'Certifikate was move from {source} to {target}')
 
 def doCert(cDir):
      #createDir(cDir) #create dir
+
+     changeDir(ReadiniFile()[0])
+
      if isExistsDir(cDir): #create dir
         createDir(cDir)
+
      cert.createCNF(cDir) #create cnf file
      cert.cKey(cDir) #cree key
      cert.cCsr(cDir) #create csf file
@@ -93,14 +99,11 @@ def main():
     if (len(sys.argv)) > 1:
         name = sys.argv[1]
 
-        cert = ReadiniFile()[0]
-        changeDir(cert)
-
         name = str(name)
 
-        #doCert(name)
+        doCert(name)
         #cert.cPfx(name)
-        CopyCert(name)
+        #CopyCert(name)
     else:
         print(Fore.MAGENTA + 'warning: I\'m sorry, but argument is missing, please add argument - usually the name of certificate')
 
