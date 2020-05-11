@@ -63,11 +63,18 @@ def isExistsDir(cDir):
 def CopyCert(cDir):
     #cert, copyCert = ReadiniFile()
     crtname = 'certnew.cer'
-    source = r'c:\Users\212437054\Downloads\{name}'.format(name = crtname)
-    #source = f'{ReadiniFile()[1]}certnew.cer'
-    #target = f'{ReadiniFile()[0]}\{cDir}'
-    target = r"c:\Users\212437054\Documents\certifikaty\{cDir}\{name}".format(cDir = cDir, name = crtname)
-    shutil.move(source, target)
+    #source = r'c:\Users\212437054\Downloads\{name}'.format(name = crtname)
+    source = Path(f'{ReadiniFile()[0]}{crtname}')
+    print(source)
+    target = Path(f'{ReadiniFile()[1]}\{cDir}\{crtname}')
+    print(target)
+    if os.path.isfile(source):
+
+        print(os.getcwd())
+        #shutil.move(source, '.')
+
+    #target = r"c:\Users\212437054\Documents\certifikaty\{cDir}\{name}".format(cDir = cDir, name = crtname)
+
     print(f'Certifikate was move from {source} to {target}')
 
 def pfx(cDir):
@@ -86,23 +93,20 @@ def pfx(cDir):
 def doCert(cDir):
      #createDir(cDir) #create dir
 
-     '''
+
      changeDir(ReadiniFile()[0])
 
      if isExistsDir(cDir): #create dir
         createDir(cDir)
 
-     cert.createCNF(cDir) #create cnf file
-     cert.cKey(cDir) #cree key
-     cert.cCsr(cDir) #create csf file
-     cert.setClipboard(cDir)
-     s = clipboard.paste()
-     browser.generateCert(s)
+     #cert.createCNF(cDir) #create cnf file
+     #cert.cKey(cDir) #cree key
+     #cert.cCsr(cDir) #create csf file
+     #cert.setClipboard(cDir)
+     #s = clipboard.paste()
+     #browser.generateCert(s)
      CopyCert(cDir)
-     '''
      pfx(cDir)
-
-
 
 
 def main():
