@@ -21,7 +21,11 @@ def ReadiniFile():
     cert = config['CERTPATH']['cert']
     copyCert = config['CERTSOURCE']['cert']
 
-    return cert, copyCert
+    if os.path.exists(cert) and os.path.exists(copyCert):
+        return cert, copyCert
+    else:
+        print("path don't exists")
+        exit()
 	
 def changeDir(xpath):
     if os.path.isdir(xpath):
@@ -63,26 +67,18 @@ def isExistsDir(cDir):
 def CopyCert(cDir):
     #cert, copyCert = ReadiniFile()
     crtname = 'certnew.cer'
-    #source = r'c:\Users\212437054\Downloads\{name}'.format(name = crtname)
-    source = Path(f'{ReadiniFile()[0]}{crtname}')
-    print(source)
-    target = Path(f'{ReadiniFile()[1]}\{cDir}\{crtname}')
-    print(target)
+    source = r'c:\Users\212437054\Downloads\{name}'.format(name = crtname)
+    target = r"c:\Users\212437054\Documents\certifikaty\{cDir}\{name}".format(cDir=cDir, name=crtname)
     if os.path.isfile(source):
-
-        print(os.getcwd())
-        #shutil.move(source, '.')
-
-    #target = r"c:\Users\212437054\Documents\certifikaty\{cDir}\{name}".format(cDir = cDir, name = crtname)
-
-    print(f'Certifikate was move from {source} to {target}')
+        shutil.move(source, target)
+        print(f'Certifikate was move from {source} to {target}')
 
 def pfx(cDir):
     createpfx = input("Do you want will create pfx ? [it's need for tomcat an iis web servers] y/n: ")
     if createpfx.lower() == 'y':
         print(f'{Fore.GREEN} I am creating pfx certificate from cer')
 
-        xdir = f'{ReadiniFile()[0]}'
+        xdir = r'c:\Users\212437054\Documents\certifikaty'
         os.chdir(Path(xdir))
         print(os.getcwd())
         cert.cPfx(cDir)
@@ -99,12 +95,12 @@ def doCert(cDir):
      if isExistsDir(cDir): #create dir
         createDir(cDir)
 
-     #cert.createCNF(cDir) #create cnf file
-     #cert.cKey(cDir) #cree key
-     #cert.cCsr(cDir) #create csf file
-     #cert.setClipboard(cDir)
-     #s = clipboard.paste()
-     #browser.generateCert(s)
+     cert.createCNF(cDir) #create cnf file
+     cert.cKey(cDir) #cree key
+     cert.cCsr(cDir) #create csf file
+     cert.setClipboard(cDir)
+     s = clipboard.paste()
+     browser.generateCert(s)
      CopyCert(cDir)
      pfx(cDir)
 
