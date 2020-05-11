@@ -2,6 +2,7 @@
 #!C:\Python36\python.exe
 
 import os, sys, configparser, cert, keyboard, browser, clipboard, shutil
+from pathlib import Path
 
 from colorama import Fore, Style, init
 
@@ -73,7 +74,10 @@ def pfx(cDir):
     createpfx = input("Do you want will create pfx ? [it's need for tomcat an iis web servers] y/n: ")
     if createpfx.lower() == 'y':
         print(f'{Fore.GREEN} I am creating pfx certificate from cer')
-        os.chdir(ReadiniFile()[0]+'\' + cDir)
+
+        xdir = f'{ReadiniFile()[0]}'
+        os.chdir(Path(xdir))
+        print(os.getcwd())
         cert.cPfx(cDir)
         print(f'{Fore.GREEN} cert pfx was created')
     else:
@@ -82,6 +86,7 @@ def pfx(cDir):
 def doCert(cDir):
      #createDir(cDir) #create dir
 
+     '''
      changeDir(ReadiniFile()[0])
 
      if isExistsDir(cDir): #create dir
@@ -94,7 +99,7 @@ def doCert(cDir):
      s = clipboard.paste()
      browser.generateCert(s)
      CopyCert(cDir)
-     browser.close()
+     '''
      pfx(cDir)
 
 

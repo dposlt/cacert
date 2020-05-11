@@ -1,10 +1,9 @@
 from selenium import webdriver
 import time
 
-driver = webdriver.Chrome(r"R:\wwwroot\cacert\chromedriver_win32\chromedriver.exe") ## need absolute path
+
 def generateCert(pastetext):
-
-
+    driver = webdriver.Chrome(r"R:\wwwroot\cacert\chromedriver_win32\chromedriver.exe")  ## need absolute path
     weburl = 'https://ica/certsrv/certrqxt.asp'
     if driver:
         driver.get(weburl)
@@ -29,11 +28,11 @@ def generateCert(pastetext):
         driver.find_element_by_link_text("Download certificate").click()
         time.sleep(5) #waiting for download
 
+        driver.close()
+
 
     else:
         print('driver not found')
         exit()
 
 
-def close():
-    driver.close()
