@@ -1,9 +1,9 @@
 from selenium import webdriver
 import time
 
-
+driver = webdriver.Chrome(r"R:\wwwroot\cacert\chromedriver_win32\chromedriver.exe") ## need absolute path
 def generateCert(pastetext):
-    driver = webdriver.Chrome(r"R:\wwwroot\cacert\chromedriver_win32\chromedriver.exe") ## need absolute path
+
 
     weburl = 'https://ica/certsrv/certrqxt.asp'
     if driver:
@@ -35,4 +35,5 @@ def generateCert(pastetext):
         exit()
 
 
-
+def close():
+    driver.close()

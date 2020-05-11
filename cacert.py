@@ -61,12 +61,23 @@ def isExistsDir(cDir):
 
 def CopyCert(cDir):
     #cert, copyCert = ReadiniFile()
-
-    source = r'c:\Users\212437054\Downloads\certnew.cer'
+    crtname = 'certnew.cer'
+    source = r'c:\Users\212437054\Downloads\{name}'.format(name = crtname)
     #source = f'{ReadiniFile()[1]}certnew.cer'
-    target = f'{ReadiniFile()[0]}\{cDir}'
+    #target = f'{ReadiniFile()[0]}\{cDir}'
+    target = r"c:\Users\212437054\Documents\certifikaty\{cDir}\{name}".format(cDir = cDir, name = crtname)
     shutil.move(source, target)
     print(f'Certifikate was move from {source} to {target}')
+
+def pfx(cDir):
+    createpfx = input("Do you want will create pfx ? [it's need for tomcat an iis web servers] y/n: ")
+    if createpfx.lower() == 'y':
+        print(f'{Fore.GREEN} I am creating pfx certificate from cer')
+        os.chdir(ReadiniFile()[0]+'\' + cDir)
+        cert.cPfx(cDir)
+        print(f'{Fore.GREEN} cert pfx was created')
+    else:
+        exit()
 
 def doCert(cDir):
      #createDir(cDir) #create dir
@@ -83,7 +94,8 @@ def doCert(cDir):
      s = clipboard.paste()
      browser.generateCert(s)
      CopyCert(cDir)
-     
+     browser.close()
+     pfx(cDir)
 
 
 
